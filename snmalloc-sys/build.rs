@@ -220,6 +220,12 @@ fn main() {
         }
     }
 
+    if triple.contains("sgx") {
+        cfg = cfg.define("EDP_SGX", "1");
+        cfg = cfg.define("SNMALLOC_SGX", "1");
+        println!("cargo build for sgx");
+    }
+
     if cfg!(all(windows, target_env = "msvc")) {
         cfg = cfg.define("CMAKE_CXX_FLAGS_RELEASE", "/O2 /Ob2 /DNDEBUG /EHsc");
         cfg = cfg.define("CMAKE_C_FLAGS_RELEASE", "/O2 /Ob2 /DNDEBUG /EHsc");
@@ -303,7 +309,7 @@ fn main() {
 
     // linux: using PTHREAD_DESTRUCTORS
     if cfg!(target_os = "linux") {
-        println!("cargo:rustc-link-lib=dylib=atomic");
+        //println!("cargo:rustc-link-lib=dylib=atomic");
     }
 
     if cfg!(target_os = "freebsd") {
@@ -311,7 +317,7 @@ fn main() {
     } else if cfg!(all(unix, not(target_os = "macos"))) {
         // using PTHREAD_DESTRUCTOR
         if cfg!(target_env = "gnu") {
-            println!("cargo:rustc-link-lib=c_nonshared");
+            //println!("cargo:rustc-link-lib=c_nonshared");
         }
     } else if cfg!(windows) {
         // not need for explicit c++ runtime
