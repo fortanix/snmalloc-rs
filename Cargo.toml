@@ -16,7 +16,7 @@ readme = "README.md"
 members = ["snmalloc-sys" ]
 
 [dependencies]
-snmalloc-sys = {version = "0.3.5", path = "snmalloc-sys", default-features = ["default", "debug", "usecxx17"] }
+snmalloc-sys = {version = "0.3.5", path = "snmalloc-sys", features = ["default", "debug", "usecxx17"] }
 
 [features]
 default = ["snmalloc-sys/build_cmake"]
